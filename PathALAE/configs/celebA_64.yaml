@@ -1,0 +1,23 @@
+# CONFIG FILE FOR celeba_hq_64
+#
+# MODEL HYPER-PARAMETERS
+img_dim: 64
+filters: [ 64, 64, 64, 64, 32, 16 ]
+encoder_type: "Residual" # or "InNorm"
+decoder_type: "DeMod"  # or "AdaIn"
+attention_level: 3
+alpha: 0.0015
+z_dim: 100
+F_layers: 3
+D_layers: 3
+base_dim: (8, 8, 256)
+batch_size: 8
+gammas: 0.1
+
+# data set size and k-iterations
+n: 30_000
+epochs: 32
+
+# I/O
+data_dir: "/home/simon/Documents/Programming/Data/progressive_growing_of_gans/celeba-hq/celeba-64"
+run_dir: "/home/simon/PycharmProjects/PathologyALAE/TestRun"

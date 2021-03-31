@@ -223,7 +223,7 @@ def build_encoder(z_dim, image_dim, filters, attention_level):
                           block=b,
                           name=f"E_block_{b+1}_encoder")(x)
 
-        if x.shape[1] != 4:
+        if x.shape[1] != 8: # FIX THIS - Needs to be controlled by base_dim
             # Down sample
             x = AveragePooling2D(name=f"E_block_{b}_DownSample")(x)
         x = Conv2DEQ(filters=filters[::-1][b + 1],

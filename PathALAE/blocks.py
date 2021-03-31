@@ -1,7 +1,7 @@
 from PathALAE.layers import *
 
 
-# Generator
+# Generator - FIX NOISE TO SAME AS DEMOD GENEREATOR
 class ResidualBlockAdaIN(Model):
     """
     Generator block using adaptive instance normalisation to inject style,

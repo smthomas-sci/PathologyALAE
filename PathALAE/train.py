@@ -32,7 +32,7 @@ FILTERS = config["filters"]                            # List of features in con
 ATTENTION_LEVEL = config["attention_level"]            # Which level to add an attention block
 IMG_DIM = config["img_dim"]                            # The size of the input image / target image e.g. (256, 256, 3)
 Z_DIM = config["z_dim"]                                # The size of the latent dimension e.g 512
-BASE_DIM = config["base_dim"]                          # Shape of base feature space e.g. (8, 8, 256)
+BASE_DIM = tuple(config["base_dim"])                   # Shape of base feature space e.g. (8, 8, 256)
 
 # Training
 ALPHA = config["alpha"]                                 # Learning Rate - good between 0.001-0.002
@@ -43,7 +43,7 @@ BATCH_SIZE = config["batch_size"]                       # Depends on hardware
 N = config["n"]                                         # The number of images in the dataset
 EPOCHS = config["epochs"]                               # The number of training epochs
 EMA = config["ema"]                                     # Bool - calculate EMA of weights?
-D = config["d"]                                         # Number of display images for training progress
+DIS = config["d"]                                        # Number of display images for training progress
 
 # Directories
 DATA_DIR = config["data_dir"]                           # Path to the data directory
@@ -70,7 +70,7 @@ data_gen, _ = create_data_set(data_directory=DATA_DIR,
 
 # Get test data - is the same for each run!
 tf.random.set_seed(1234)
-test_z = tf.random.normal((D, Z_DIM), seed=1)
+test_z = tf.random.normal((DIS, Z_DIM), seed=1)
 test_batch = get_test_batch(data_gen)
 
 # Create Strategy
@@ -119,7 +119,7 @@ callbacks = [
                     test_z=test_z,
                     test_batch=test_batch,
                     img_dir=os.path.join(OUT_DIR, f"{IMG_DIM}x{IMG_DIM}/"),
-                    n=D,
+                    n=DIS,
                     weight_dir=os.path.join(WEIGHT_DIR, f"{IMG_DIM}x{IMG_DIM}/"),
                     )
         ]

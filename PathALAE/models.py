@@ -289,7 +289,7 @@ class ALAE(Model):
     An Adversarial Latent Autoencoder Model (ALAE), self-contained for
     training at each block size.
     """
-    def __init__(self, x_dim, z_dim, f_model, g_model, e_model, d_model, merge, style_mix_step=16):
+    def __init__(self, x_dim, z_dim, f_model, g_model, e_model, d_model, style_mix_step=16):
         super(ALAE, self).__init__()
         self.z_dim = z_dim
         self.x_dim = x_dim
@@ -297,7 +297,6 @@ class ALAE(Model):
         self.G = g_model
         self.E = e_model
         self.D = d_model
-        self.fade = merge
         self.levels = int(np.log2(self.x_dim/2))  # the number of blocks
         self.style_mix_step = style_mix_step
 
@@ -358,9 +357,6 @@ class ALAE(Model):
         self.optimizer_g = g_optimizer
         self.optimizer_r = r_optimizer
         self.γ = γ
-
-        if self.fade:
-            self.alpha_step = alpha_step
 
         # get trainable params
         self.θ_F = self.F.trainable_weights

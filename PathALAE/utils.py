@@ -77,17 +77,10 @@ class Summary(TensorBoard):
         plt.text(-1, 0.4, "Recon.", transform=ax[1, 0].transAxes)
         plt.text(-1.1, 0.4, "Sample", transform=ax[2, 0].transAxes)
 
-        if self.model.fade:
-            alpha = self.model.G.get_layer('Fade_G').alpha.value().numpy()
-            m = f" - alpha: {alpha:.3}"
-        else:
-            m = ""
+        m = ""
         plt.text(0, 1.2, f"{dim}x{dim}: {epoch:04d}{m}", transform=ax[0, 0].transAxes)
 
-        if self.model.fade:
-            suffix = "_merge"
-        else:
-            suffix = ""
+        suffix = ""
 
         fname = os.path.join(self.img_dir, f"progress_{dim:04d}{suffix}_{epoch:04d}.jpg")
         plt.savefig(fname)
@@ -98,10 +91,7 @@ class Summary(TensorBoard):
         if not self.save_all:
             epoch = -1
 
-        if self.model.fade:
-            suffix = "_merge_weights"
-        else:
-            suffix = "_weights"
+        suffix = "_weights"
 
         out_dir = os.path.join(self.weight_dir, f"Epoch_{epoch:03d}")
         if not os.path.exists(out_dir):
